@@ -3,7 +3,7 @@ class Config:
 
     baseUrl = 'https://www.youtube.com/watch?v='
 
-    channels = {'rafatus': 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC9gkwh2D2Vo_0YNB-q71d1A&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
+    channels = {'rafatus': 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCeAun7EBsIyk-1jYGx2NLeg&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
                 'Telewizja wPolsce' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCPiu4CZlknkTworskK79CPg&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
                 'Rzeczpospolita TV' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCpchzx2u5Ab8YASeJsR1WIw&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
                 }

@@ -4,7 +4,7 @@ import json
 from config import Config
 
 class LiveStream(Config):
-    ### Returns urls list of live streams
+    ### Returns dict of live streams jasons + names from config
     def isLive(self):
         liveStreams = []
         for key, value in self.channels.items():
@@ -12,17 +12,18 @@ class LiveStream(Config):
             jason = json.loads(response)
 
             if jason['pageInfo']['totalResults'] == 1:
-                videoUrl = self.baseUrl + jason['items']['id']['videoId']
-                liveStreams.append(videoUrl)
+                liveStreams[key] = jason
             return liveStreams
 
-class Record:
-    def __init__(self, videoUrl):
-        self.videoUrl = videoUrl
-
     def startRecording(self):
-        for v in self.videoUrl
-        subprocess.Popen(['youtube-dl', self.videoUrl], shell=False)
+        videoUrl = self.baseUrl + self.liveStream['items']['id']['videoId']
+        proc = subprocess.Popen(['youtube-dl', videoUrl], shell=False, name=self.name)
+        return proc
+
+
+
+
+
 
 
 
