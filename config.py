@@ -3,7 +3,11 @@ class Config:
 
     baseUrl = 'https://www.youtube.com/watch?v='
 
-    channels = {'rafatus': 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCeAun7EBsIyk-1jYGx2NLeg&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
-                'Telewizja wPolsce' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCPiu4CZlknkTworskK79CPg&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
-                'Rzeczpospolita TV' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCpchzx2u5Ab8YASeJsR1WIw&type=video&eventType=live&key=AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw',
+    auth2 = 'AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw'
+    auth = 'AIzaSyBag5dZLIOwtU-UO8Cr8iXK4Gv0ZV8VmLU'
+
+    channels = {'Telewizja wPolsce' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCPiu4CZlknkTworskK79CPg&type=video&eventType=live&key=' + auth,
+                'Rzeczpospolita TV' : 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCpchzx2u5Ab8YASeJsR1WIw&type=video&eventType=live&key=' + auth,
                 }
+
+# 'rafatus': 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCeAun7EBsIyk-1jYGx2NLeg&type=video&eventType=live&key=' + auth

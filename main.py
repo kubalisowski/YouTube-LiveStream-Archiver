@@ -1,17 +1,24 @@
-from stream import LiveStream
+from teststream import LiveStream, Record
 
-stream = LiveStream()
-rec = stream.startRecording()
+processes1 = []
 
-### If .poll() returns None process is live
-for r in rec:
-    print(r.poll())
+### To be put into schedule
+def main(processes):
+    live = LiveStream()
+    streams = live.liveStreams
+    for key, value in streams.items():
+        if len(processes) == 0:
+            rec = Record(key, value)
+            processes.append(rec.startRecording())
+    return processes
+                # if p.poll() == None:
+                #     if p.name
+                #     rec = Record()
+                #     processes.append(rec.startRecording(key, value))
 
-
-
-
-
-
+xxx = main(processes1)
+for x in xxx:
+    print(x.name)
 
 
 
