@@ -4,14 +4,14 @@ import json
 from config import Config
 
 class ProcManager:
-    def inactiveKiller(self, processes):  # # Delete inactive subprocess object (subrocess_object.poll() != None)
+    def inactiveKiller(self, processes):  # Delete inactive subprocess object (subrocess_object.poll() != None)
         if processes != None or processes > 0:
             for p in processes:
                 if p.poll() != None:
                     processes.remove(p)
             return processes
         else:
-            processes = [] # Prevent NoneType
+            processes = list() # Prevent NoneType
             return processes
 
 
@@ -38,7 +38,7 @@ class Record():
 
 
 class LiveStream(Config):
-    liveStreams = {}  ### liveStreams variable is dict {channel_name : livestream_url,}
+    liveStreams = {}  # {channel_name : livestream_url,}
     for key, value in Config.channels.items():
         jason = json.loads(requests.get(value, Config.headers).text)
         if jason['pageInfo']['totalResults'] == 1:
