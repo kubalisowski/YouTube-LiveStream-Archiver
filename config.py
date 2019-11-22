@@ -19,6 +19,8 @@ class Config():
         'Rzeczpospolita TV' : 'UCpchzx2u5Ab8YASeJsR1WIw',
     }
 
+    downloadPath = r'./download'
+
 
 class ChannelsAPI(Config):   # { name : api_link_to_channel_to_get_json_response }
     channels = {}
@@ -27,6 +29,12 @@ class ChannelsAPI(Config):   # { name : api_link_to_channel_to_get_json_response
             for name, id in Config.channelId.items():
                 channels.update({name : Config.api[0] + id + Config.api[1] + auth})
             break
+
+# class MoveMovie:
+
+
+
+
 
 
 

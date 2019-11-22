@@ -30,9 +30,9 @@ class ProcManager:
                 return dict()  # Zero live streams returns empty dict object
 
 
-class Record:
-    def startRecording(self, channelName, videoUrl):
-        proc = subprocess.Popen(['youtube-dl', videoUrl], shell=False)
+class Record(Config):
+    def startRecording(self, channelName, videoUrl, downloadPath):
+        proc = subprocess.Popen(['youtube-dl', videoUrl], shell=False, cwd=downloadPath)
         proc.name = channelName
         return proc
 
@@ -43,7 +43,6 @@ class LiveStream(ChannelsAPI):   # ChannelsAPI inherits Config
         jason = json.loads(requests.get(value, Config.headers).text)  # JSON response from api link
         if jason['pageInfo']['totalResults'] == 1:
             liveStreams.update({key: Config.baseUrl + jason['items'][0]['id']['videoId']})
-
 
 
 class Main(ProcManager, Record, LiveStream):
@@ -58,7 +57,7 @@ class Main(ProcManager, Record, LiveStream):
         if lenghtStreams > 0:
             for key, value in newStreams.items():
                 rec = Record()
-                processes.append(rec.startRecording(key, value))
+                processes.append(rec.startRecording(key, value, Config.downloadPath))  # Subpropcess will run on specified location
             return processes
         else: # Zero new streams
             return list()

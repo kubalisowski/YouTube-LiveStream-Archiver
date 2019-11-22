@@ -4,13 +4,13 @@ import time
 global procs
 procs = list()
 
-def main(procs):
+def main(processes):
     mainObj = Main()
-    actualProcesses = mainObj.exec(procs)
+    actualProcesses = mainObj.exec(processes)
     return actualProcesses
 
 while True:
-    processes = main(procs)
+    procs = main(procs)
     time.sleep(300) # 5 minutes
 
 
