@@ -4,11 +4,13 @@ import json
 
 class Config():
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}
-    authKeys = ['AIzaSyC_XW-N6NYuZ7cVo4MaOu5JoR1niLoQQls', 'AIzaSyBag5dZLIOwtU-UO8Cr8iXK4Gv0ZV8VmLU',
-            'AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw']
+    authKeys = ['AIzaSyC_XW-N6NYuZ7cVo4MaOu5JoR1niLoQQls',
+                'AIzaSyBag5dZLIOwtU-UO8Cr8iXK4Gv0ZV8VmLU',
+                'AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw']
 
     baseUrl = 'https://www.youtube.com/watch?v='
-    api = ['https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=', '&type=video&eventType=live&key=']
+    api = ['https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=',
+           '&type=video&eventType=live&key=']
     authCheck = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC4QobU6STFB0P71PMvOGN5A&type=video&eventType=live&key='  # Var for check if auth key is valid
 
     channelId = {
