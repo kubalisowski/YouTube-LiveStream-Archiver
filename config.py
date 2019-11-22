@@ -2,7 +2,7 @@
 import requests
 import json
 
-class Config:
+class Config():
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}
     authKeys = ['AIzaSyC_XW-N6NYuZ7cVo4MaOu5JoR1niLoQQls', 'AIzaSyBag5dZLIOwtU-UO8Cr8iXK4Gv0ZV8VmLU',
             'AIzaSyBFB6euD6FKO6OwixkSENe4FJtejE1ahXw']
@@ -18,13 +18,15 @@ class Config:
     }
 
 
-class Auth(Config):
+class ChannelsAPI(Config):   # { name : api_link_to_channel_to_get_json_response }
     channels = {}
     for auth in Config.authKeys:
         if 'error' not in requests.get(Config.authCheck + auth, Config.headers).text:
             for name, id in Config.channelId.items():
                 channels.update({name : Config.api[0] + id + Config.api[1] + auth})
             break
+
+
 
 
 

@@ -1,7 +1,7 @@
 import subprocess
 import requests
 import json
-from config import Config
+from config import Config, ChannelsAPI
 
 class ProcManager:
     def inactiveKiller(self, processes):  # Delete inactive subprocess object (subrocess_object.poll() != None)
@@ -30,19 +30,20 @@ class ProcManager:
                 return dict()  # Zero live streams returns empty dict object
 
 
-class Record():
+class Record:
     def startRecording(self, channelName, videoUrl):
         proc = subprocess.Popen(['youtube-dl', videoUrl], shell=False)
         proc.name = channelName
         return proc
 
 
-class LiveStream(Config):
+class LiveStream(ChannelsAPI):   # ChannelsAPI inherits Config
     liveStreams = {}  # {channel_name : livestream_url,}
-    for key, value in Config.channels.items():
-        jason = json.loads(requests.get(value, Config.headers).text)
+    for key, value in ChannelsAPI.channels.items():
+        jason = json.loads(requests.get(value, Config.headers).text)  # JSON response from api link
         if jason['pageInfo']['totalResults'] == 1:
             liveStreams.update({key: Config.baseUrl + jason['items'][0]['id']['videoId']})
+
 
 
 class Main(ProcManager, Record, LiveStream):
@@ -63,4 +64,3 @@ class Main(ProcManager, Record, LiveStream):
             return list()
 
 
-            
