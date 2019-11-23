@@ -2,9 +2,10 @@ import subprocess
 import requests
 import json
 from config import Config, ChannelsAPI
+import os
 
 class ProcManager:
-    def inactiveKiller(self, processes):  # Delete inactive subprocess object (subrocess_object.poll() != None)
+    def inactiveKiller(self, processes):  # Delete inactive subprocess object (subprocess_object.poll() != None)
         if processes != None or processes > 0:
             for p in processes:
                 if p.poll() != None:
@@ -15,7 +16,7 @@ class ProcManager:
             return processes
 
 
-    def compareProcStream(self, processes, liveStreams):  # Def returns dict of stremas to start be recording
+    def compareProcStream(self, processes, liveStreams):  # Def returns dict of streams to start be recording
         if len(processes) == 0:
             return liveStreams  # No processes running thus all live streams can be recorder
         else:
@@ -30,19 +31,30 @@ class ProcManager:
                 return dict()  # Zero live streams returns empty dict object
 
 
+class LiveStream(ChannelsAPI):   # ChannelsAPI inherits Config
+    liveStreams = {}  # { channel_name : livestream_url }
+    for key, value in ChannelsAPI.channels.items():
+        jason = json.loads(requests.get(value, Config.headers).text)  # JSON response from api link
+        if jason['pageInfo']['totalResults'] == 1:
+            liveStreams.update({key: Config.baseUrl + jason['items'][0]['id']['videoId']})
+
+
+class OrganizeFiles(ChannelsAPI):  # ChannelAPI inherits from Config
+    def execute(self, channelName):
+        downloadPath = str()
+        nextDir = r'/'   # For download path creation
+        for channel, apiUrl in ChannelsAPI.channels.items():
+            if channel == channelName:
+                jason = json.loads(requests.get(apiUrl, Config.headers).text)
+                downloadPath = Config.mainDownloadPath + nextDir + channel + nextDir + Config.year + Config.month + Config.day
+        return downloadPath
+            
+
 class Record(Config):
     def startRecording(self, channelName, videoUrl, downloadPath):
         proc = subprocess.Popen(['youtube-dl', videoUrl], shell=False, cwd=downloadPath)
         proc.name = channelName
         return proc
-
-
-class LiveStream(ChannelsAPI):   # ChannelsAPI inherits Config
-    liveStreams = {}  # {channel_name : livestream_url,}
-    for key, value in ChannelsAPI.channels.items():
-        jason = json.loads(requests.get(value, Config.headers).text)  # JSON response from api link
-        if jason['pageInfo']['totalResults'] == 1:
-            liveStreams.update({key: Config.baseUrl + jason['items'][0]['id']['videoId']})
 
 
 class Main(ProcManager, Record, LiveStream):
@@ -55,11 +67,13 @@ class Main(ProcManager, Record, LiveStream):
         lenghtStreams = len(newStreams)
 
         if lenghtStreams > 0:
-            for key, value in newStreams.items():
+            for name, videoUrl in newStreams.items():
+                dirs = OrganizeFiles()
+                saveFilePath = dirs.execute(name)
+                if not os.path.exists(saveFilePath):  # Creating folder structure if not exist
+                    os.makedirs(saveFilePath)
                 rec = Record()
-                processes.append(rec.startRecording(key, value, Config.downloadPath))  # Subpropcess will run on specified location
+                processes.append(rec.startRecording(name, videoUrl, str(saveFilePath)))  # Subpropcess will run, so file will be saved: channel_na>>date>>videoname.mp4
             return processes
         else: # Zero new streams
             return list()
-
-
