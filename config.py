@@ -15,7 +15,6 @@ class Config():
     authCheck = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC4QobU6STFB0P71PMvOGN5A&type=video&eventType=live&key='  # Var for check if auth key is valid
 
     channelId = {
-        'rafatus' : 'UCeAun7EBsIyk-1jYGx2NLeg',
         'Telewizja wPolsce' : 'UCPiu4CZlknkTworskK79CPg',
         'Rzeczpospolita TV' : 'UCpchzx2u5Ab8YASeJsR1WIw',
     }
